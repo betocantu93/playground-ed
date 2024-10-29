@@ -49,12 +49,55 @@ function routes() {
   */
 
   // this.resource('projects');
+
+  this.get('/projects', function (schema, req) {
+    const projects = schema.db.projects;
+    const payload = {
+      data: projects.map((project) => {
+        const { id, ...rest } = this.serialize(project);
+        return {
+          id,
+          type: 'projects',
+          attributes: rest,
+        };
+      }),
+    };
+    return payload;
+  });
+
   this.get('/projects/:id', function (schema, req) {
     const { id, ...rest } = this.serialize(schema.db.projects.find(req.params.id));
     const payload = {
       data: {
         id,
         type: 'projects',
+        attributes: rest,
+      },
+    };
+    return payload;
+  });
+
+  this.post('/projects', function (schema, req) {
+    debugger
+    const { id, ...rest } = this.serialize(schema.db.projects.find(req.params.id));
+    const payload = {
+      data: {
+        id,
+        type: 'projects',
+        attributes: rest,
+      },
+    };
+    return payload;
+  });
+
+  this.post('/pokemons', function (schema, req) {
+    const pokemon = schema.db.pokemons.create(JSON.parse(req.requestBody));
+    console.log(pokemon);
+    const { id, ...rest } = this.serialize(pokemon);
+    const payload = {
+      data: {
+        id,
+        type: 'pokemons',
         attributes: rest,
       },
     };

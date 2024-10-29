@@ -6,8 +6,14 @@
   <h2>Project</h2>
   <p>Name: {{project.name}}</p>
   <p>Description: {{project.description}}</p>
-  <h3>Pokemon</h3>
-  <p>Name: {{project.pokemon.firstName}}</p>
+
+  <h3>{{project.document.constructor.modelName}}</h3>
+  <p>Unit:
+    {{project.document.unit}}
+    <button
+      {{on "click" (fn this.increment project.document)}}
+    >Increment</button>
+  </p>
 {{/each}}
 
 {{outlet}}
