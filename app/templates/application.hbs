@@ -1,2 +1,13 @@
 <LinkTo @route="projects.show" @model={{1}}>Projects</LinkTo>
+
+<button {{on "click" this.createProject}}>Create Project</button>
+
+{{#each this.projects as |project|}}
+  <h2>Project</h2>
+  <p>Name: {{project.name}}</p>
+  <p>Description: {{project.description}}</p>
+  <h3>Pokemon</h3>
+  <p>Name: {{project.pokemon.firstName}}</p>
+{{/each}}
+
 {{outlet}}

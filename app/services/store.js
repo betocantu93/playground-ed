@@ -16,7 +16,11 @@ const PokemonSchema = withLegacy({
   type: 'pokemon',
   fields: [
     {
-      kind: 'field',
+      kind: 'attribute',
+      name: 'firstName',
+    },
+    {
+      kind: 'attribute',
       name: 'description',
     },
     {
