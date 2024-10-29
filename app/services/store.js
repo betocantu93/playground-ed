@@ -1,20 +1,18 @@
-import Store from '@ember-data/store';
+import Store from 'ember-data/store';
 import { service } from '@ember/service';
 import {
   instantiateRecord as legacyModelinstantiateRecord,
   teardownRecord as legacyModelTeardownRecord,
 } from '@ember-data/model';
 import JsonApiCache from '@ember-data/json-api';
-import { DelegatingSchemaService } from '@ember-data/model/migration-support';
+import { DelegatingSchemaService, registerDerivations, withDefaults as withLegacy } from '@ember-data/model/migration-support';
 import { SchemaService } from '@warp-drive/schema-record/schema';
-import { withDefaults } from '@warp-drive/schema-record/schema';
 import {
   instantiateRecord as schemaRecordInstantiateRecord,
   teardownRecord as schemaRecordTeardownRecord,
 } from '@warp-drive/schema-record/hooks';
 
-const PokemonSchema = withDefaults({
-  legacy: true,
+const PokemonSchema = withLegacy({
   type: 'pokemon',
   fields: [
     {
@@ -42,6 +40,7 @@ export default class StoreService extends Store {
 
   createSchemaService() {
     const schema = new SchemaService();
+    registerDerivations(schema);
     schema.registerResources([PokemonSchema]);
     return new DelegatingSchemaService(this, schema);
   }

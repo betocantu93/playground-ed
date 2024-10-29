@@ -17,6 +17,5 @@ export default class Requests extends RequestManager {
   constructor(args?: Record<string | symbol, unknown>) {
     super(args);
     this.use([LegacyNetworkHandler, TestHandler, Fetch]);
-    this.useCache(CacheHandler);
   }
 }
